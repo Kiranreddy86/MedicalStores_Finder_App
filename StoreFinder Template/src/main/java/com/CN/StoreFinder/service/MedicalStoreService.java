@@ -32,7 +32,8 @@ public class MedicalStoreService {
     }
 
     public MedicalStore getMedicalStoreById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Medical Store not found with id: " + id));
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Medical Store not found with id: " + id));
     }
 
     public List<MedicalStore> getAllMedicalStores() {
@@ -54,9 +55,10 @@ public class MedicalStoreService {
         repository.deleteById(id);
     }
 
-    public long calculateDistance(Long userId, MedicalStore store){
+    public long calculateDistance(Long userId, MedicalStore store) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        System.out.println(user.getXCoordinate() + " " +user.getYCoordinate() + " " + store.getYCoordinate() + " " + store.getXCoordinate());
+        System.out.println(user.getXCoordinate() + " " + user.getYCoordinate() + " " + store.getYCoordinate() + " "
+                + store.getXCoordinate());
 
         return (long) Math.sqrt((Math.abs(user.getXCoordinate() - store.getXCoordinate()) *
                 Math.abs(user.getXCoordinate() - store.getXCoordinate())) +
@@ -65,10 +67,20 @@ public class MedicalStoreService {
     }
 
     public List<MedicalStore> getNearestMedicalStores(Long userId, Long distance) {
-        return getAllMedicalStores().stream().filter(store -> calculateDistance(userId, store) <= distance).collect(Collectors.toList());
+        return getAllMedicalStores().stream().filter(store -> calculateDistance(userId, store) <= distance)
+                .collect(Collectors.toList());
     }
 
     public List<MedicalStore> getMedicalStoresHavingMedicine(String medicine) {
-        return getAllMedicalStores().stream().filter(store -> store.getMedicines().contains(medicine)).collect(Collectors.toList());
+        return getAllMedicalStores().stream().filter(store -> store.getMedicines().contains(medicine))
+                .collect(Collectors.toList());
     }
+
+    public List<MedicalStore> getNearsetMedicalStoresHavingMedicine(Long userId, Long distance, String medicine) {
+        List<MedicalStore> nearestMedicalStores = getNearestMedicalStores(userId, distance);
+        return nearestMedicalStores.stream()
+                .filter(store -> store.getMedicines().contains(medicine))
+                .collect(Collectors.toList());
+    }
+
 }

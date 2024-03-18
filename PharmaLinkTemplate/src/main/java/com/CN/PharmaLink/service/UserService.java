@@ -25,10 +25,9 @@ public class UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private StoreFinderCommunicator communicator;
-	
 
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
@@ -52,15 +51,25 @@ public class UserService {
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}
-    public List<MedicalStoreDto> getNearestMedicalStores(Long userId, Long distance, String jwtToken){
-    	User user=userRepository.findById(userId).get();
-    	List<MedicalStoreDto> storesDtos=communicator.getNearestMedicalStores(userId, distance, jwtToken);
-    	return storesDtos;
+
+	public List<MedicalStoreDto> getNearestMedicalStores(Long userId, Long distance, String jwtToken) {
+		User user = userRepository.findById(userId).get();
+		List<MedicalStoreDto> storesDtos = communicator.getNearestMedicalStores(userId, distance, jwtToken);
+		return storesDtos;
 	}
-	
-    public List<MedicalStoreDto> getMedicalStoresWithMedicine(String medicine, String jwtToken){
-    	List<MedicalStoreDto> storesDtos=communicator.getMedicalStoresWithMedicine(medicine, jwtToken);
-    	return storesDtos;
+
+	public List<MedicalStoreDto> getMedicalStoresWithMedicine(String medicine, String jwtToken) {
+		List<MedicalStoreDto> storesDtos = communicator.getMedicalStoresWithMedicine(medicine, jwtToken);
+		return storesDtos;
+	}
+
+	public List<MedicalStoreDto> getNearsetMedicalStoresHavingMedicine(Long userId, Long distance, String medicine,
+			String token) {
+		User user = userRepository.findById(userId).get();
+		List<MedicalStoreDto> storesDtos = communicator.getAllNearestMedicalStoresWithMedicine(userId, distance,
+				medicine, token);
+		return storesDtos;
+
 	}
 
 }

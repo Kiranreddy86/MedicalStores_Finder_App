@@ -31,12 +31,12 @@ public class MedicalStoreController {
     }
 
     @GetMapping("getNearestStores/{userId}/{distance}")
-    public List<MedicalStore> getNearestMedicalStores(@PathVariable Long userId, @PathVariable Long distance){
+    public List<MedicalStore> getNearestMedicalStores(@PathVariable Long userId, @PathVariable Long distance) {
         return medicalStoreService.getNearestMedicalStores(userId, distance);
     }
 
     @GetMapping("getStoresWithMedicine/{medicine}")
-    public List<MedicalStore> getMedicalStoresHavingMedicine(@PathVariable String medicine){
+    public List<MedicalStore> getMedicalStoresHavingMedicine(@PathVariable String medicine) {
         return medicalStoreService.getMedicalStoresHavingMedicine(medicine);
     }
 
@@ -48,6 +48,13 @@ public class MedicalStoreController {
     @DeleteMapping("/delete/{id}")
     public void deleteMedicalStore(@PathVariable Long id) {
         medicalStoreService.deleteMedicalStore(id);
+    }
+
+    @GetMapping("/getNearsetMedicalStoresHavingMedicine/{medicine}")
+    public List<MedicalStore> getNearsetMedicalStoresHavingMedicine(@RequestParam Long userId,
+            @RequestParam Long distance, @PathVariable String medicine,
+            @PathVariable String token) {
+        return medicalStoreService.getNearsetMedicalStoresHavingMedicine(userId, distance, medicine);
     }
 
 }

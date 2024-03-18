@@ -13,5 +13,4 @@ public class MedicalStoreDto {
     private Long xCoordinate;
     private Long yCoordinate;
     private List<String> medicines;
-
 }
