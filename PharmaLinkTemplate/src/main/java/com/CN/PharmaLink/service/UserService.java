@@ -66,4 +66,10 @@ public class UserService {
 		return storesDtos;
 	}
 
+	public List<MedicalStoreDto> getNearestMedicalStores(Long userId, String token) {
+		User user = userRepository.findById(userId).get();
+		List<MedicalStoreDto> storesDtos = communicator.getNearestMedicalStores(userId, token);
+		return storesDtos;
+	}
+
 }

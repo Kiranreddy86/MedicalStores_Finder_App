@@ -113,4 +113,31 @@ public class StoreFinderCommunicator {
         return nearestStoresWithMedicine;
     }
 
+    public List<MedicalStoreDto> getNearestMedicalStores(Long userId, String jwtToken) {
+        String url = "http://localhost:8081/store/getNearestStores/";
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + jwtToken);
+        HttpEntity<Map<String, Long>> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<List<MedicalStore>> storeEntity = restTemplate.exchange(
+                url + userId,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<List<MedicalStore>>() {
+                });
+
+        List<MedicalStore> aList = storeEntity.getBody();
+        List<MedicalStoreDto> aList2 = new ArrayList<MedicalStoreDto>();
+        for (MedicalStore store : aList) {
+            MedicalStoreDto dto = new MedicalStoreDto();
+            dto.setArea(store.getArea());
+            dto.setContact(store.getContact());
+            dto.setMedicines(store.getMedicines());
+            dto.setName(store.getName());
+            dto.setLatitude(store.getLatitude());
+            dto.setLongitude(store.getLongitude());
+            aList2.add(dto);
+        }
+        return aList2;
+    }
+
 }

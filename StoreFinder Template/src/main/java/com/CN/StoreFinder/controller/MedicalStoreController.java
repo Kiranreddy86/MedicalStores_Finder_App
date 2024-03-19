@@ -57,4 +57,9 @@ public class MedicalStoreController {
         return medicalStoreService.getNearsetMedicalStoresHavingMedicine(userId, distance, medicine);
     }
 
+    @GetMapping("getNearestStores/{userId}")
+    public List<MedicalStore> getNearestMedicalStores(@PathVariable Long userId) {
+        return medicalStoreService.getNearestMedicalStores(userId);
+    }
+
 }

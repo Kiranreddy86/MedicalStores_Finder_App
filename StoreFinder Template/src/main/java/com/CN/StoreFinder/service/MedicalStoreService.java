@@ -96,4 +96,8 @@ public class MedicalStoreService {
                 .collect(Collectors.toList());
     }
 
+    public List<MedicalStore> getNearestMedicalStores(Long userId) {
+        return getAllMedicalStores().stream().filter(store -> calculateDistance(userId, store) <= 20)
+                .collect(Collectors.toList());
+    }
 }
