@@ -10,7 +10,7 @@ public class MedicalStoreDto {
     private String name;
     private Long contact;
     private String area;
-    private Long xCoordinate;
-    private Long yCoordinate;
+    private Double latitude;
+    private Double longitude;
     private List<String> medicines;
 }

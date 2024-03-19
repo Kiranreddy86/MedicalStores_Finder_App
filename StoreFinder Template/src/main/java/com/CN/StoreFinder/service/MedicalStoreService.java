@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 @Service
 public class MedicalStoreService {
 
+    private static final double EARTH_RADIUS = 6371;
+
     @Autowired
     private MedicalStoreRepository repository;
 
@@ -26,8 +28,8 @@ public class MedicalStoreService {
         store.setName(medicalStoreDto.getName());
         store.setContact(medicalStoreDto.getContact());
         store.setMedicines(medicalStoreDto.getMedicines());
-        store.setXCoordinate(medicalStoreDto.getXCoordinate());
-        store.setYCoordinate(medicalStoreDto.getYCoordinate());
+        store.setLatitude(medicalStoreDto.getLatitude());
+        store.setLongitude(medicalStoreDto.getLongitude());
         return repository.save(store);
     }
 
@@ -46,8 +48,8 @@ public class MedicalStoreService {
         existingStore.setName(medicalStoreDto.getName());
         existingStore.setContact(medicalStoreDto.getContact());
         existingStore.setMedicines(medicalStoreDto.getMedicines());
-        existingStore.setXCoordinate(medicalStoreDto.getXCoordinate());
-        existingStore.setYCoordinate(medicalStoreDto.getYCoordinate());
+        existingStore.setLatitude(medicalStoreDto.getLatitude());
+        existingStore.setLongitude(medicalStoreDto.getLongitude());
         return repository.save(existingStore);
     }
 
@@ -56,14 +58,25 @@ public class MedicalStoreService {
     }
 
     public long calculateDistance(Long userId, MedicalStore store) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        System.out.println(user.getXCoordinate() + " " + user.getYCoordinate() + " " + store.getYCoordinate() + " "
-                + store.getXCoordinate());
 
-        return (long) Math.sqrt((Math.abs(user.getXCoordinate() - store.getXCoordinate()) *
-                Math.abs(user.getXCoordinate() - store.getXCoordinate())) +
-                (Math.abs(user.getYCoordinate() - store.getYCoordinate()) *
-                        Math.abs(user.getYCoordinate() - store.getYCoordinate())));
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        System.out.println(user.getLatitude() + " " + user.getLongitude() + " " + store.getLongitude() + " "
+                + store.getLatitude());
+
+        double lat1 = user.getLatitude();
+        double lon1 = user.getLongitude();
+        double lat2 = store.getLatitude();
+        double lon2 = store.getLongitude();
+
+        double latDiff = Math.toRadians(lat2 - lat1);
+        double lonDiff = Math.toRadians(lon2 - lon1);
+
+        double a = Math.pow(Math.sin(latDiff / 2), 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                        Math.pow(Math.sin(lonDiff / 2), 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = EARTH_RADIUS * c;
+        return Math.round(distance);
     }
 
     public List<MedicalStore> getNearestMedicalStores(Long userId, Long distance) {

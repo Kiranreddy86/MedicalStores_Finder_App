@@ -47,8 +47,8 @@ public class StoreFinderCommunicator {
             dto.setContact(store.getContact());
             dto.setMedicines(store.getMedicines());
             dto.setName(store.getName());
-            dto.setXCoordinate(store.getXCoordinate());
-            dto.setYCoordinate(store.getYCoordinate());
+            dto.setLatitude(store.getLatitude());
+            dto.setLongitude(store.getLongitude());
             aList2.add(dto);
         }
         return aList2;
@@ -74,8 +74,8 @@ public class StoreFinderCommunicator {
             dto.setContact(store.getContact());
             dto.setMedicines(store.getMedicines());
             dto.setName(store.getName());
-            dto.setXCoordinate(store.getXCoordinate());
-            dto.setYCoordinate(store.getYCoordinate());
+            dto.setLatitude(store.getLatitude());
+            dto.setLongitude(store.getLongitude());
             aList2.add(dto);
         }
         return aList2;
@@ -104,8 +104,8 @@ public class StoreFinderCommunicator {
                 dto.setContact(store.getContact());
                 dto.setMedicines(store.getMedicines());
                 dto.setName(store.getName());
-                dto.setXCoordinate(store.getXCoordinate());
-                dto.setYCoordinate(store.getYCoordinate());
+                dto.setLatitude(store.getLatitude());
+                dto.setLongitude(store.getLongitude());
                 nearestStoresWithMedicine.add(dto);
             }
         }

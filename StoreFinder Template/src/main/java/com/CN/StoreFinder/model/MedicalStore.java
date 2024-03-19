@@ -20,9 +20,9 @@ public class MedicalStore {
     private Long contact;
     private String area;
     @NonNull
-    private Long xCoordinate;
+    private Double latitude;
     @NonNull
-    private Long yCoordinate;
+    private Double longitude;
     @ElementCollection
     private List<String> medicines;
 

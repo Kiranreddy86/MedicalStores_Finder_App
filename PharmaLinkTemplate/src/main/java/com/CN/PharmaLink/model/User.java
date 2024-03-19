@@ -20,47 +20,47 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails{
+public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String password;
 	private String username;
-	private Long xCoordinate;
-	private Long yCoordinate;
+	private Double latitude;
+	private Double longitude;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "id"))
 	private Set<Role> roles = new HashSet<>();
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		
+
 		return this.roles.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName()))
 				.collect(Collectors.toList());
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		
+
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		
+
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		
+
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		
+
 		return true;
 	}
 

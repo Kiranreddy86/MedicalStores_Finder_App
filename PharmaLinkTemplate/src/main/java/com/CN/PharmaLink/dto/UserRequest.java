@@ -16,8 +16,8 @@ public class UserRequest {
 	@NotBlank(message = "password cannot be blank")
 	private String password;
 	@NotBlank(message = "X Coordinate cannot be blank")
-	private Long xcoordinate;
+	private Double latitude;
 	@NotBlank(message = "Y Coordinate cannot be blank")
-	private Long ycoordinate;
+	private Double longitude;
 
 }

@@ -43,8 +43,8 @@ public class UserService {
 		Set<Role> roleSet = new HashSet<>();
 		roleSet.add(role);
 		user.setRoles(roleSet);
-		user.setYCoordinate(userRequest.getYcoordinate());
-		user.setXCoordinate(userRequest.getXcoordinate());
+		user.setLatitude(userRequest.getLatitude());
+		user.setLongitude(userRequest.getLongitude());
 		userRepository.save(user);
 	}
 
@@ -69,7 +69,6 @@ public class UserService {
 		List<MedicalStoreDto> storesDtos = communicator.getAllNearestMedicalStoresWithMedicine(userId, distance,
 				medicine, token);
 		return storesDtos;
-
 	}
 
 }
