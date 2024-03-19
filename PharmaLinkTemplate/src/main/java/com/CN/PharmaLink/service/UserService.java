@@ -6,17 +6,12 @@ import com.CN.PharmaLink.model.Role;
 import com.CN.PharmaLink.model.User;
 import com.CN.PharmaLink.repository.UserRepository;
 import com.CN.StoreFinder.dto.MedicalStoreDto;
-import com.CN.StoreFinder.repository.MedicalStoreRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
