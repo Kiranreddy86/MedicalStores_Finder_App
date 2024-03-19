@@ -83,12 +83,12 @@ public class StoreFinderCommunicator {
 
     public List<MedicalStoreDto> getAllNearestMedicalStoresWithMedicine(Long userId, Long distance, String medicine,
             String jwtToken) {
-        String url = "http://localhost:8081/store/getNearestStores/";
+        String url = "http://localhost:8081/store/getNearsetMedicalStoresHavingMedicine/";
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + jwtToken);
         HttpEntity<Map<String, Long>> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<List<MedicalStore>> storeEntity = restTemplate.exchange(
-                url + userId + "/" + distance,
+                url + userId + "/" + distance + "/" + medicine + "/" + jwtToken,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<List<MedicalStore>>() {

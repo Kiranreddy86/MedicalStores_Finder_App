@@ -47,9 +47,9 @@ public class UserController {
 		return userService.getMedicalStoresWithMedicine(medicine, token);
 	}
 
-	@GetMapping("/getNearsetMedicalStoresHavingMedicine/{medicine}/{token}")
-	public List<MedicalStoreDto> getNearsetMedicalStoresHavingMedicine(@RequestParam Long userId,
-			@RequestParam Long distance, @PathVariable String medicine,
+	@GetMapping("/getNearsetMedicalStoresHavingMedicine/{userId}/{distance}/{medicine}/{token}")
+	public List<MedicalStoreDto> getNearsetMedicalStoresHavingMedicine(@PathVariable Long userId,
+			@PathVariable Long distance, @PathVariable String medicine,
 			@PathVariable String token) {
 		return userService.getNearsetMedicalStoresHavingMedicine(userId, distance, medicine, token);
 	}

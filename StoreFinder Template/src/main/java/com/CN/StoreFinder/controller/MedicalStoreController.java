@@ -50,9 +50,9 @@ public class MedicalStoreController {
         medicalStoreService.deleteMedicalStore(id);
     }
 
-    @GetMapping("/getNearsetMedicalStoresHavingMedicine/{medicine}")
-    public List<MedicalStore> getNearsetMedicalStoresHavingMedicine(@RequestParam Long userId,
-            @RequestParam Long distance, @PathVariable String medicine,
+    @GetMapping("/getNearsetMedicalStoresHavingMedicine/{userId}/{distance}/{medicine}/{token}")
+    public List<MedicalStore> getNearsetMedicalStoresHavingMedicine(@PathVariable Long userId,
+            @PathVariable Long distance, @PathVariable String medicine,
             @PathVariable String token) {
         return medicalStoreService.getNearsetMedicalStoresHavingMedicine(userId, distance, medicine);
     }
