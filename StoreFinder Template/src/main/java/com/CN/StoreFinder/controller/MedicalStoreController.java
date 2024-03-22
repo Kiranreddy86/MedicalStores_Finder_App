@@ -1,6 +1,7 @@
 package com.CN.StoreFinder.controller;
 
 import com.CN.StoreFinder.dto.MedicalStoreDto;
+import com.CN.StoreFinder.dto.MedicinesDto;
 import com.CN.StoreFinder.model.MedicalStore;
 import com.CN.StoreFinder.service.MedicalStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,11 @@ public class MedicalStoreController {
     @GetMapping("getNearestStores/{userId}")
     public List<MedicalStore> getNearestMedicalStores(@PathVariable Long userId) {
         return medicalStoreService.getNearestMedicalStores(userId);
+    }
+
+    @GetMapping("getStoresWithListMedicines")
+    public List<MedicalStore> getMedicalStoresHavingListMedicines(@RequestBody MedicinesDto medicineDto) {
+        return medicalStoreService.getMedicalStoresHavingListMedicines(medicineDto);
     }
 
 }

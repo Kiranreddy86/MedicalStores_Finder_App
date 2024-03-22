@@ -1,6 +1,7 @@
 package com.CN.StoreFinder.service;
 
 import com.CN.StoreFinder.dto.MedicalStoreDto;
+import com.CN.StoreFinder.dto.MedicinesDto;
 import com.CN.StoreFinder.model.MedicalStore;
 import com.CN.StoreFinder.model.User;
 import com.CN.StoreFinder.repository.MedicalStoreRepository;
@@ -8,6 +9,7 @@ import com.CN.StoreFinder.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,6 +100,19 @@ public class MedicalStoreService {
 
     public List<MedicalStore> getNearestMedicalStores(Long userId) {
         return getAllMedicalStores().stream().filter(store -> calculateDistance(userId, store) <= 20)
+                .collect(Collectors.toList());
+    }
+
+    public List<MedicalStore> getMedicalStoresHavingListMedicines(MedicinesDto medicineDto) {
+        if (medicineDto == null || medicineDto.getMedicine() == null) {
+            return new ArrayList<>();
+        }
+        List<String> medicines = medicineDto.getMedicine();
+        return getAllMedicalStores().stream()
+                .filter(store -> {
+                    List<String> storeMedicines = store.getMedicines();
+                    return storeMedicines != null && storeMedicines.containsAll(medicines);
+                })
                 .collect(Collectors.toList());
     }
 }

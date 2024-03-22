@@ -1,6 +1,7 @@
 package com.CN.PharmaLink.controller;
 
 import com.CN.PharmaLink.dto.UserRequest;
+import com.CN.PharmaLink.dto.MedicinesDto;
 import com.CN.PharmaLink.model.User;
 import com.CN.PharmaLink.service.UserService;
 import com.CN.StoreFinder.dto.MedicalStoreDto;
@@ -59,6 +60,12 @@ public class UserController {
 			@PathVariable String token) {
 		return userService.getNearestMedicalStores(userId, token);
 
+	}
+
+	@GetMapping("/getStoresWithListMedicines/{token}")
+	public List<MedicalStoreDto> getMedicalStoresHavingListMedicines(@RequestBody MedicinesDto medicinesDto,
+			@PathVariable String token) {
+		return userService.getMedicalStoreswithListMedicines(medicinesDto, token);
 	}
 
 }

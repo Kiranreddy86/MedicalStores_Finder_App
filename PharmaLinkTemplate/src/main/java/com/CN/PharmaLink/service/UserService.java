@@ -1,6 +1,7 @@
 package com.CN.PharmaLink.service;
 
 import com.CN.PharmaLink.communicator.StoreFinderCommunicator;
+import com.CN.PharmaLink.dto.MedicinesDto;
 import com.CN.PharmaLink.dto.UserRequest;
 import com.CN.PharmaLink.model.Role;
 import com.CN.PharmaLink.model.User;
@@ -69,6 +70,11 @@ public class UserService {
 	public List<MedicalStoreDto> getNearestMedicalStores(Long userId, String token) {
 		User user = userRepository.findById(userId).get();
 		List<MedicalStoreDto> storesDtos = communicator.getNearestMedicalStores(userId, token);
+		return storesDtos;
+	}
+
+	public List<MedicalStoreDto> getMedicalStoreswithListMedicines(MedicinesDto medicinesDto, String token) {
+		List<MedicalStoreDto> storesDtos = communicator.getMedicalStoresWithListMedicines(medicinesDto, token);
 		return storesDtos;
 	}
 
